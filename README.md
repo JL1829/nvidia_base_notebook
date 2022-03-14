@@ -41,3 +41,19 @@ docker run --gpus all -d -p 8848:8888 --name gpu_conda nvidia_base_conda
 ```
 
 Open your browser, type `http://localhost:8848`, remotely: `http://<yourhostip>:8848`
+
+
+## For data persistent and sharing suggesting:
+Use [Docker Bind Mount](https://docs.docker.com/storage/bind-mounts/) or [Docker Volume](https://docs.docker.com/storage/volumes/)
+
+### Volume:
+* Create Volume first: 
+  * `docker volume create myvol` (myvol) is the Volume's name
+* Start a container with a Volume
+  * `docker run --gpus all -d -p 8848:8888 -v myvol:/home/jovan nvidia_base_conda`
+
+### Bind Mount:
+* Start a container that mounted to your current working directory:
+  * `docker run --gpus all -d -p 8848:8888 -v "$(pwd)":/home/jovan nvidia_base_conda`
+
+The container's working directory will have access to your current working directory
