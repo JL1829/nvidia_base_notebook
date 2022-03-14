@@ -1,10 +1,3 @@
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
-
-# Ubuntu 20.04 (focal)
-# https://hub.docker.com/_/ubuntu/?tab=tags&name=focal
-# ARG ROOT_CONTAINER=ubuntu:focal
-
 FROM nvidia/cuda:11.3.0-cudnn8-runtime-ubuntu20.04
 
 LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"

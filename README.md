@@ -1,12 +1,43 @@
-# Base Jupyter Notebook Stack
+# Base Jupyter Lab Server with git based on nVidia CUDA base image
 
-[![docker pulls](https://img.shields.io/docker/pulls/jupyter/base-notebook.svg)](https://hub.docker.com/r/jupyter/base-notebook/)
-[![docker stars](https://img.shields.io/docker/stars/jupyter/base-notebook.svg)](https://hub.docker.com/r/jupyter/base-notebook/)
-[![image size](https://img.shields.io/docker/image-size/jupyter/base-notebook/latest)](https://hub.docker.com/r/jupyter/base-notebook/ "jupyter/base-notebook image size")
+Use this Dockerfile to build your own Docker image to run GPU-accelerated Jupyter Lab
 
-GitHub Actions in the <https://github.com/jupyter/docker-stacks> project builds and pushes this image to Docker Hub.
+**What's inside:**
 
-Please visit the project documentation site for help using and contributing to this image and others.
+* Ubuntu 20.04 runtime with CUDA:11.3
+* Python 3.8
+* Latest Miniconda
+* NumPy with Intel MKL accelerated
+* Scikit-Learn
 
-- [Jupyter Docker Stacks on ReadTheDocs](https://jupyter-docker-stacks.readthedocs.io/en/latest/index.html)
-- [Selecting an Image :: Core Stacks :: jupyter/base-notebook](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-base-notebook)
+For PyTorch, TensorFlow, or other Deep Learning Framework or GPU-accelerated Data Science tools, please feel free to modify `Dockerfile` or install it within the container
+
+
+**Jupyter Lab Password:**
+`gpu-jupyter`
+
+## Step
+```shell
+git clone https://github.com/JL1829/nvidia_base_notebook.git
+cd nvidia_base_notebook
+
+docker build -t <image_name> .
+
+# after build
+docker run --gpus all -d -p 8848:8888 --name <container_name> <image_name>
+```
+
+For example:
+
+```shell
+git clone https://github.com/JL1829/nvidia_base_notebook.git
+cd nvidia_base_notebook
+
+docker build -t nvidia_base_conda
+......(building)
+
+docker run --gpus all -d -p 8848:8888 --name gpu_conda nvidia_base_conda
+38ajcd(container hash)
+```
+
+Open your browser, type `http://localhost:8848`, remotely: `http://<yourhostip>:8848`
