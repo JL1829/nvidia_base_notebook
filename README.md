@@ -33,7 +33,7 @@ For example:
 git clone https://github.com/JL1829/nvidia_base_notebook.git
 cd nvidia_base_notebook
 
-docker build -t nvidia_base_conda
+docker build -t nvidia_base_conda .
 ......(building)
 
 docker run --gpus all -d -p 8848:8888 --name gpu_conda nvidia_base_conda
@@ -50,10 +50,10 @@ Use [Docker Bind Mount](https://docs.docker.com/storage/bind-mounts/) or [Docker
 * Create Volume first: 
   * `docker volume create myvol` (myvol) is the Volume's name
 * Start a container with a Volume
-  * `docker run --gpus all -d -p 8848:8888 -v myvol:/home/jovan nvidia_base_conda`
+  * `docker run --gpus all -d -p 8848:8888 -v myvol:/home/jovyan nvidia_base_conda`
 
 ### Bind Mount:
 * Start a container that mounted to your current working directory:
-  * `docker run --gpus all -d -p 8848:8888 -v "$(pwd)":/home/jovan nvidia_base_conda`
+  * `docker run --gpus all -d -p 8848:8888 -v "$(pwd)":/home/jovyan nvidia_base_conda`
 
 The container's working directory will have access to your current working directory

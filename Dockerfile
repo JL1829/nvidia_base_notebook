@@ -22,6 +22,10 @@ RUN apt-get update --yes && \
     fonts-liberation \
     locales \
     git \
+    # fix OpenCV issue \
+    ffmpeg \
+    libsm6 \
+    libxext6 \
     # - pandoc is used to convert notebooks to html files
     #   it's not present in arm64 ubuntu image, so we install it here
     pandoc \
@@ -83,19 +87,11 @@ RUN mkdir "/home/${NB_USER}/work" && \
 # Install conda as jovyan and check the sha256 sum provided on the download site
 WORKDIR /tmp
 
-# CONDA_MIRROR is a mirror prefix to speed up downloading
-# For example, people from mainland China could set it as
-# https://mirrors.tuna.tsinghua.edu.cn/github-release/conda-forge/miniforge/LatestRelease
+# CONDA_MIRROR
 ARG CONDA_MIRROR=https://repo.anaconda.com/miniconda
 ARG CONDA_INSTALLER=Miniconda3-py38_4.11.0-Linux-x86_64.sh
 
-# ---- Miniforge installer ----
-# Check https://github.com/conda-forge/miniforge/releases
-# Package Manager and Python implementation to use (https://github.com/conda-forge/miniforge)
-# We're using Mambaforge installer, possible options:
-# - conda only: either Miniforge3 to use Python or Miniforge-pypy3 to use PyPy
-# - conda + mamba: either Mambaforge to use Python or Mambaforge-pypy3 to use PyPy
-# Installation: conda, mamba, pip
+# ---- Miniconda installer ----
 RUN set -x && \
     # conda installer
     wget --quiet "${CONDA_MIRROR}/${CONDA_INSTALLER}" && \
@@ -132,6 +128,10 @@ RUN conda install --quiet --yes \
     rm -rf "/home/${NB_USER}/.cache/yarn" && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
+
+
+# install PyTorch with CUDA 11.3
+# RUN conda install --yes pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 
 EXPOSE 8888
 
