@@ -23,6 +23,8 @@ RUN apt-get update --yes && \
     locales \
     git \
     # fix OpenCV issue \
+    # fix gcc build issue
+    build-essential \
     ffmpeg \
     libsm6 \
     libxext6 \
@@ -131,7 +133,7 @@ RUN conda install --quiet --yes \
 
 
 # install PyTorch with CUDA 11.3
-# RUN conda install --yes pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
+RUN conda install --yes pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 
 EXPOSE 8888
 
