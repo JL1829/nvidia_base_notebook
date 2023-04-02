@@ -2,6 +2,8 @@
 
 Use this Dockerfile to build your own Docker image to run GPU-accelerated Jupyter Lab
 
+Big thanks for the origin author: [gpu-jupyter](https://github.com/iot-salzburg/gpu-jupyter)
+
 **What's inside:**
 
 * Ubuntu 20.04 runtime with CUDA:11.3
