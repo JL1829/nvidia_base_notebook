@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.3.0-cudnn8-runtime-ubuntu20.04
+FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu20.04
 
 LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 ARG NB_USER="jovyan"
@@ -91,7 +91,7 @@ WORKDIR /tmp
 
 # CONDA_MIRROR
 ARG CONDA_MIRROR=https://repo.anaconda.com/miniconda
-ARG CONDA_INSTALLER=Miniconda3-py38_4.11.0-Linux-x86_64.sh
+ARG CONDA_INSTALLER=Miniconda3-py38_23.1.0-1-Linux-x86_64.sh
 
 # ---- Miniconda installer ----
 RUN set -x && \
@@ -133,7 +133,7 @@ RUN conda install --quiet --yes \
 
 
 # install PyTorch with CUDA 11.3
-RUN conda install --yes pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
+# RUN conda install --yes pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 
 EXPOSE 8888
 
